@@ -1,6 +1,4 @@
-Readme :
-
-I've created three plots , namely :
+There are three plots : 
 	1. index_1.html
 	2. improve_coloring.html
 	3. index_3.html
@@ -10,8 +8,6 @@ I've created three plots , namely :
 * index_3 html I've used D3 and GeoMap dependency. This has improved readability by doing a lot of pre-processing  and has additional features like - zoom on click, Tooltips based on data etc. Here I've plotted the distribution of average delays across states, but there is no 'finding' that might come as a revelation, also the narrative is entirely author-driven.
 
 * improve_coloring.html is a work under progress. I've basically written the code underneath GeoMap and tried to create my own Choropleth - everything is fine but for colouring. I'm experimenting with the quantizer at the moment.
-
-
 
 index_1.html :
 
@@ -33,7 +29,7 @@ since the air-traffic will be much higher than expected. This is especially clea
 Does the visualization focus on its finding?
 I've tried to use colours as pre-attentive processing and used line-graph to show the variation with time and trends. I've also used different colours and size to highlight the two trends I want the users to focus on.
 
-*Feedbacks* :
+Feedbacks :
 1. Suggestion to show trends with time instead of airline. (Used line-graph and changed the plot x-axis to months of a year).
 2. Highlight data I wanted the users to look at (I decided to add color and size to the circles).
 3. Add a legend as the message wasn't really straightforward from the 'months' x-axis (I have added a legend).
