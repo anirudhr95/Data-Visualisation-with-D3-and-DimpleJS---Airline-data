@@ -9,5 +9,6 @@ This is a data-viz project vizualisation data using animation and user-interacti
   - Needs work on user-interaction aspect of the graph.
   - And D3js and GeoMap dependency. This geomap brings some very useful features like tooltip data, zoom on click (to focus) etc.
 - Data cleaned, manipulated and analysed using **R**.  
+
 **Details in : details.pdf**
 
