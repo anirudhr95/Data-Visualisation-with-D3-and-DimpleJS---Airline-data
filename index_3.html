@@ -30,20 +30,19 @@ function create_map()
     .geofile('d3-dependency/topojson/countries/USA.json')
     .projection(d3.geo.albersUsa)
     .scale(1500)
-    .legend(true);
-
+    .legend(true)
+    .column('delay')
+    .unitId('full_state_name')
+    
  d3.csv('data/state_wise_delay.csv', function(error , data) {      //Data for state-wise-delay , created using r , 'final_iteration.R'
-
-
-       d3.select('#map')
+  
+  d3.select('#map')
         .datum(data)
         .call(map.draw, map);
 
-
 });
-      
-    map.column('delay')
-    .unitId('full_state_name')
+
+   
 
 }
 </script>
