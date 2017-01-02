@@ -7,28 +7,28 @@
  svg
 {
   display : block;
-  margin : 0 auto;
+  /*margin : 0 auto;*/
 }
 
 /*Add colours to June-July months - Summer vacaction*/
 
-.dimple-6                           
+.dimple-fri-jun-01-1900-00-00-00-gmt-0530--india-standard-time-                          
 {
 	fill : rgb(244, 66, 131) !important;
 	r : 7;
 }
-.dimple-7
+.dimple-sun-jul-01-1900-00-00-00-gmt-0530--india-standard-time-
 {
 	fill : rgb(244, 66, 131) !important;
 	r : 7;
 }
 /*Add colour to christmas and new-year*/
-.dimple-12	
+.dimple-sat-dec-01-1900-00-00-00-gmt-0530--india-standard-time-
 {
 	fill : rgb(95, 244, 66) !important;
 	r : 8;
 }
-.dimple-1
+.dimple-mon-jan-01-1900-00-00-00-gmt-0530--india-standard-time-
 {
   fill : rgb(95, 244, 66) !important;
   r : 8;
@@ -112,14 +112,14 @@ function plotDataAndAnimate(data) {
     var frame = 1000;
  	 var firstTick = true;
     
-    var svg = dimple.newSvg("body" , 900 , 800);
+    var svg = dimple.newSvg("body" , 1200 , 800);
 
     //Step 2 : Create an Indicator box to show which year is being show in the data! --> Use barplot vs time and hide x-axis to show only y-axis years
     var indicator = new dimple.chart(svg, data);    //Indicator is the container for the years boxes!
 
  	var defaultColor =  indicator.defaultColors[0];
     var indicatorColor = indicator.defaultColors[2];
-    indicator.setBounds(400, 320, 140, 220);
+    indicator.setBounds(780, 320, 140, 220);
 
  		  
 	  var indicator_y = indicator.addCategoryAxis("y", "year");
@@ -134,8 +134,8 @@ function plotDataAndAnimate(data) {
 
 	  indicator_y.shapes.selectAll("text")           //Formatting for text inside the boxes
               .style("text-anchor", "start")
-              .style("font-size", "11px")
-              .attr("transform", "translate(18, 0.5)"); 
+              .style("font-size", "12px")
+              .attr("transform", "translate(18, 0.5)");
 
 	  indicator_y.shapes.selectAll("line,path").remove();
 
@@ -145,11 +145,12 @@ function plotDataAndAnimate(data) {
               "to resume animation"])
           .enter()
           .append("text")
-          .attr("x", 250)
-          .attr("y", function (d, i) { return 420 + i * 12; }) //15 + i * 12
+          .attr("x", 780)
+          .attr("y", function (d, i) { return 270 + i * 12; }) //15 + i * 12
           .style("font-family", "sans-serif")
-          .style("font-size", "12px")
+          .style("font-size", "11px")
           .style("color", "Black")
+          .style("line-height" , "30px")
           .text(function (d) { return d; });      
 
     //end of step 3 -----------------------------------------------------------------------------------------------------------------
@@ -234,9 +235,9 @@ function plotDataAndAnimate(data) {
     //Step 5 : main plot------------------------------------------------------------------------------------------------------------
 
       var myChart = new dimple.chart(svg, data);      //The main plot
-	    myChart.setBounds(60,50,800,500);
+	    myChart.setBounds(70,50,700,500);
   	  var y = myChart.addMeasureAxis("y", "delay_carrier");
-      var x  = myChart.addCategoryAxis("x", "month");
+      var x  = myChart.addTimeAxis("x", "month","%m" , "%b");
       x.title =  "Months";
       y.title = "Delay in Minutes(Millions)";
 
