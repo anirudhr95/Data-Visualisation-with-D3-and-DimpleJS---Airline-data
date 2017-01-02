@@ -105,7 +105,7 @@ function onTick(e) {
     //end of step 3 ---------------------------------------------------------------------------------------------------------------
 
   var margin = 75;
-  var width = 1820 - margin,
+  var width = 1820 - margin;
   var height = 900 - margin;
 
   var frame = 1000;
@@ -165,8 +165,7 @@ function onTick(e) {
   var circle_draw = circles                               //Adding circles in the legend to svg
     .attr("cx" , function(d) {return 1370;})
     .attr("cy" , function(d) { return (620 + (3.2*d)) ;})
-    .attr("r" , function(d){
-
+    .attr("r" , function(d) {
     var return_radius;
     if(d === 20) {return_radius = 8;}
     else if(d === 30) {return_radius = 7;}
@@ -175,7 +174,7 @@ function onTick(e) {
    .style("fill" , function(d){
     if(d === 20) { return "rgb(95, 244, 66)";}
     else if(d ===30 ) { return "rgb(244, 66, 131)";}
-  })
+    })
   .attr("stroke" , "#6b94b0")
   .attr("stroke-width" , 1)
   .attr("opacity" , 0.8);     
@@ -209,7 +208,7 @@ function onTick(e) {
     .style("font-family", "sans-serif")
     .style("font-size", "14px")
     .style("color", "Black")
-    .text(function (d) { return d; });  
+    .text(function (d)  { return d; });  
 
   svg.selectAll("title_text_legend_christmas") //Adding text inside legend #2
     .data([" - Summer Vacations"])                    
@@ -252,9 +251,10 @@ function onTick(e) {
       
 
   story.storyLabel.remove(); //Remove label that appears on iterating through the data , since I have a seperate indicater box
-      //end.
+                             //end.
       
   }
+
  </script>
 
 
@@ -263,11 +263,9 @@ function onTick(e) {
 <div class="page-header" id = 'page-header'>
   <h1 id = 'big-text'>Delay in Airports<small> Through months of the year</small></h1>
 </div>
-  <script type="text/javascript">
-
-d3.csv("/data/airline_monthly_delay.csv" , plotDataAndAnimate );
-
-  </script>
+<script type="text/javascript">
+  d3.csv("/data/airline_monthly_delay.csv" , plotDataAndAnimate );
+</script>
 </div>
 </body>
 </html>
