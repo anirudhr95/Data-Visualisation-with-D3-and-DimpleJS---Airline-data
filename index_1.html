@@ -246,7 +246,7 @@ function plotDataAndAnimate(data) {
      
       var story = myChart.setStoryboard("year" , onTick);
       story.addOrderRule("year");
-      story.frameDuration = 1800;
+      story.frameDuration = 3000; 		//Frame transition,  increase delay
       
       myChart.draw();
       
