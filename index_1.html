@@ -14,18 +14,18 @@
 
 .dimple-fri-jun-01-1900-00-00-00-gmt-0530--india-standard-time-                          
 {
-	fill : rgb(244, 66, 131) !important;
+  fill : rgb(244, 66, 131) !important;
 	r : 7;
 }
 .dimple-sun-jul-01-1900-00-00-00-gmt-0530--india-standard-time-
 {
-	fill : rgb(244, 66, 131) !important;
+  fill : rgb(244, 66, 131) !important;
 	r : 7;
 }
 /*Add colour to christmas and new-year*/
 .dimple-sat-dec-01-1900-00-00-00-gmt-0530--india-standard-time-
 {
-	fill : rgb(95, 244, 66) !important;
+  fill : rgb(95, 244, 66) !important;
 	r : 8;
 }
 .dimple-mon-jan-01-1900-00-00-00-gmt-0530--india-standard-time-
@@ -46,10 +46,10 @@ h1
 
 <!-- Importing D3 and dimple -->
 <script src="http://d3js.org/d3.v3.min.js"></script>
- <script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
+<script src="http://dimplejs.org/dist/dimple.v2.2.0.min.js"></script>
 
  <!-- Importing bootstrap -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> 
 
 <script type = "text/javascript">
 function plotDataAndAnimate(data) {
@@ -72,191 +72,190 @@ function plotDataAndAnimate(data) {
   //Step 1 : Filter the data by years neccessary---------------------------------------------------
   data = dimple.filterData(data, "year", [
     "2004", "2005", "2006", "2007", "2008",
-    "2009", "2010", "2011", "2012" , "2013" ,  "2014", "2015"
-]);   //Use data only from the years
+    "2009", "2010", "2011", "2012" , "2013" ,  "2014", "2015"]);   //Use data only from the years
 
   //end of step 1 -----------------------------------------------------
 
 
-    //Step 3: Add listeners to indicator box plots - to resume/pause ------------------------------------------------------------
-      function onClick(e) {
-    // Pause the animation
+  //Step 3: Add listeners to indicator box plots - to resume/pause ------------------------------------------------------------
+  function onClick(e) {
+  // Pause the animation
+  story.pauseAnimation();
+  // If it is already selected resume the animation
+  // otherwise pause and move to the selected month
+  if (e.yValue === story.getFrameValue()) {
+  	story.startAnimation();
+  } else {
+    story.goToFrame(e.yValue);
     story.pauseAnimation();
-    // If it is already selected resume the animation
-    // otherwise pause and move to the selected month
-    if (e.yValue === story.getFrameValue()) {
-        story.startAnimation();
-    } else {
-        story.goToFrame(e.yValue);
-        story.pauseAnimation();
-       }
-    } 
+  }
+  } 
 
-   	function onTick(e) {
-        if (!firstTick) {
-            // Color all shapes the same
-            s.shapes
-                    .transition()
-                    .duration(frame / 2)
-                    .style("fill", function (d) { return (d.y === e ? indicatorColor.fill : defaultColor.fill) })
-                    .style("stroke", function (d) { return (d.y === e ? indicatorColor.stroke : defaultColor.stroke) });
-        }
-        firstTick = false;
+function onTick(e) {
+  if (!firstTick) {
+// Color all shapes the same
+     s.shapes
+    .transition()
+    .duration(frame / 2)
+    .style("fill", function (d) { return (d.y === e ? indicatorColor.fill : defaultColor.fill) })
+    .style("stroke", function (d) { return (d.y === e ? indicatorColor.stroke : defaultColor.stroke) });
     }
+  firstTick = false;
+  }
     //end of step 3 ---------------------------------------------------------------------------------------------------------------
 
-    var margin = 75,
-      width = 1820 - margin,
-      height = 900 - margin;
+  var margin = 75;
+  var width = 1820 - margin,
+  var height = 900 - margin;
 
-    var frame = 1000;
- 	 var firstTick = true;
+  var frame = 1000;
+  var firstTick = true;
     
-    var svg = dimple.newSvg("body" , 1200 , 800);
+  var svg = dimple.newSvg("body" , 1200 , 800);
 
     //Step 2 : Create an Indicator box to show which year is being show in the data! --> Use barplot vs time and hide x-axis to show only y-axis years
-    var indicator = new dimple.chart(svg, data);    //Indicator is the container for the years boxes!
+  var indicator = new dimple.chart(svg, data);    //Indicator is the container for the years boxes!
 
- 	var defaultColor =  indicator.defaultColors[0];
-    var indicatorColor = indicator.defaultColors[2];
-    indicator.setBounds(780, 320, 140, 220);
+  var defaultColor =  indicator.defaultColors[0];
+  var indicatorColor = indicator.defaultColors[2];
+  indicator.setBounds(780, 320, 140, 220);
 
  		  
-	  var indicator_y = indicator.addCategoryAxis("y", "year");
-	  indicator_y.addOrderRule("year", "Desc");
-	  var indicator_x = indicator.addMeasureAxis("x", "delay_weather");
-	  indicator_x.hidden = true;    //Hidden x-axis , since I only need 'years' boxes.
+  var indicator_y = indicator.addCategoryAxis("y", "year");
+  indicator_y.addOrderRule("year", "Desc");
+  var indicator_x = indicator.addMeasureAxis("x", "delay_weather");
+  indicator_x.hidden = true;     //Hidden x-axis , since I only need 'years' boxes.
 	  
-	  var s = indicator.addSeries(null, dimple.plot.bar);
-	  s.addEventHandler("click", onClick); //Add listener ^
-	  indicator.draw();
-	  indicator_y.titleShape.remove();
+  var s = indicator.addSeries(null, dimple.plot.bar);
+  s.addEventHandler("click", onClick); //Add listener ^
+  indicator.draw();
+  indicator_y.titleShape.remove();
 
-	  indicator_y.shapes.selectAll("text")           //Formatting for text inside the boxes
-              .style("text-anchor", "start")
-              .style("font-size", "12px")
-              .attr("transform", "translate(18, 0.5)");
+  indicator_y.shapes.selectAll("text")           //Formatting for text inside the boxes
+    .style("text-anchor", "start")
+    .style("font-size", "12px")
+    .attr("transform", "translate(18, 0.5)");
 
-	  indicator_y.shapes.selectAll("line,path").remove();
+  indicator_y.shapes.selectAll("line,path").remove();
 
-	  svg.selectAll("title_text")                    //Add text instructions
-          .data(["Click bar to select",
-              "and pause. Click again",
-              "to resume animation"])
-          .enter()
-          .append("text")
-          .attr("x", 780)
-          .attr("y", function (d, i) { return 270 + i * 12; }) //15 + i * 12
-          .style("font-family", "sans-serif")
-          .style("font-size", "11px")
-          .style("color", "Black")
-          .style("line-height" , "30px")
-          .text(function (d) { return d; });      
+  svg.selectAll("title_text")                    //Add text instructions
+    .data(["Click bar to select",
+           "and pause. Click again",
+           "to resume animation"])
+    .enter()
+    .append("text")
+    .attr("x", 780)
+    .attr("y", function (d, i) { return 270 + i * 12; }) //15 + i * 12
+    .style("font-family", "sans-serif")
+    .style("font-size", "11px")
+    .style("color", "Black")
+    .style("line-height" , "30px")
+    .text(function (d) { return d; });      
 
     //end of step 3 -----------------------------------------------------------------------------------------------------------------
 
     //Step 4: Add legend ------------------------------------------------------------------------------------------------------------
-    var christmas_circles = [20,30];
+  var christmas_circles = [20,30];
 
-    var circles = svg.selectAll('legend_circles_christmas')  //Using data,enter for adding legend
+  var circles = svg.selectAll('legend_circles_christmas')  //Using data,enter for adding legend
     .data(christmas_circles)
     .enter()
     .append('circle');      
 
-    var circle_draw = circles                               //Adding circles in the legend to svg
-                      .attr("cx" , function(d) {return 1370;})
-                      .attr("cy" , function(d) { return (620 + (3.2*d)) ;})
-                      .attr("r" , function(d){
-                      var return_radius;
-                      if(d === 20) {return_radius = 8;}
-                      else if(d === 30) {return_radius = 7;}
-                      return return_radius;
+  var circle_draw = circles                               //Adding circles in the legend to svg
+    .attr("cx" , function(d) {return 1370;})
+    .attr("cy" , function(d) { return (620 + (3.2*d)) ;})
+    .attr("r" , function(d){
 
-                      })
-                      .style("fill" , function(d){
-                        if(d === 20) { return "rgb(95, 244, 66)";}
-                        else if(d ===30 ) { return "rgb(244, 66, 131)";}
-                      })
-                      .attr("stroke" , "#6b94b0")
-                      .attr("stroke-width" , 1)
-                      .attr("opacity" , 0.8);     
+    var return_radius;
+    if(d === 20) {return_radius = 8;}
+    else if(d === 30) {return_radius = 7;}
+    return return_radius;
+    })
+   .style("fill" , function(d){
+    if(d === 20) { return "rgb(95, 244, 66)";}
+    else if(d ===30 ) { return "rgb(244, 66, 131)";}
+  })
+  .attr("stroke" , "#6b94b0")
+  .attr("stroke-width" , 1)
+  .attr("opacity" , 0.8);     
 
-    var rectangle = svg.append("rect")                //Adding a box around legend
-                           .attr("x", 1350)
-                           .attr("y", 650)
-                           .attr("width", 280)
-                           .attr("height", 90)
-                           .attr("fill-opacity" , 0.0)
-                           .attr("stroke" , "#0e0e0f")
-                           .attr("stroke-width" , 0.4);
+  var rectangle = svg.append("rect")                //Adding a box around legend
+    .attr("x", 1350)
+    .attr("y", 650)
+    .attr("width", 280)
+    .attr("height", 90)
+    .attr("fill-opacity" , 0.0)
+    .attr("stroke" , "#0e0e0f")
+    .attr("stroke-width" , 0.4);
 
-    svg.selectAll("title_text_legend")        //Adding the title 'legend'
-            .data(["Legend"])                    
-            .enter()
-            .append("text")
-            .attr("x", 1450)
-            .attr("y", 640) //15 + i * 12
-            .style("font-family", "sans-serif")
-            .style("font-size", "14px")
-            .style("color", "Black")
-            .text(function (d) { return d; });       
+  svg.selectAll("title_text_legend")        //Adding the title 'legend'
+    .data(["Legend"])                    
+    .enter()
+    .append("text")
+    .attr("x", 1450)
+    .attr("y", 640) //15 + i * 12
+    .style("font-family", "sans-serif")
+    .style("font-size", "14px")
+    .style("color", "Black")
+    .text(function (d) { return d; });       
 
   svg.selectAll("title_text_legend_christmas")  //Adding text inside legend
-            .data([" - Christmas and New Year vacations"])                    
-            .enter()
-            .append("text")
-            .attr("x", 1385)
-            .attr("y", 687) //15 + i * 12
-            .style("font-family", "sans-serif")
-            .style("font-size", "14px")
-            .style("color", "Black")
-            .text(function (d) { return d; });  
+    .data([" - Christmas and New Year vacations"])                    
+    .enter()
+    .append("text")
+    .attr("x", 1385)
+    .attr("y", 687) //15 + i * 12
+    .style("font-family", "sans-serif")
+    .style("font-size", "14px")
+    .style("color", "Black")
+    .text(function (d) { return d; });  
 
   svg.selectAll("title_text_legend_christmas") //Adding text inside legend #2
-            .data([" - Summer Vacations"])                    
-            .enter()
-            .append("text")
-            .attr("x", 1385)
-            .attr("y", 720) //15 + i * 12
-            .style("font-family", "sans-serif")
-            .style("font-size", "14px")
-            .style("color", "Black")
-            .text(function (d) { return d; });  
-             
-        s.shapes                              //Setting Default color and color on highlight!
-              .attr("rx", 10)
-              .attr("ry", 10)
-              .style("fill", function (d) { return (d.y === '2003' ? indicatorColor.fill : defaultColor.fill) })
-              .style("stroke", function (d) { return (d.y === '2003' ? indicatorColor.stroke : defaultColor.stroke) })
-              .style("opacity", 0.4);       
+    .data([" - Summer Vacations"])                    
+    .enter()
+    .append("text")
+    .attr("x", 1385)
+    .attr("y", 720) //15 + i * 12
+    .style("font-family", "sans-serif")
+    .style("font-size", "14px")
+    .style("color", "Black")
+    .text(function (d) { return d; });  
+     
+  s.shapes                              //Setting Default color and color on highlight!
+    .attr("rx", 10)
+    .attr("ry", 10)
+    .style("fill", function (d) { return (d.y === '2003' ? indicatorColor.fill : defaultColor.fill) })
+    .style("stroke", function (d) { return (d.y === '2003' ? indicatorColor.stroke : defaultColor.stroke) })
+    .style("opacity", 0.4);       
 
     //end of step 4 ----------------------------------------------------------------------------------------------------------------
 
     //Step 5 : main plot------------------------------------------------------------------------------------------------------------
 
-      var myChart = new dimple.chart(svg, data);      //The main plot
-	    myChart.setBounds(70,50,700,500);
-  	  var y = myChart.addMeasureAxis("y", "delay_carrier");
-      var x  = myChart.addTimeAxis("x", "month","%m" , "%b");
-      x.title =  "Months";
-      y.title = "Delay in Minutes(Millions)";
+  var myChart = new dimple.chart(svg, data);      //The main plot
+  myChart.setBounds(70,50,700,500);
+  var y = myChart.addMeasureAxis("y", "delay_carrier");
+  var x  = myChart.addTimeAxis("x", "month","%m" , "%b");
+  x.title =  "Months";
+  y.title = "Delay in Minutes(Millions)";
 
-      var series = myChart.addSeries(null, dimple.plot.line);
-      myChart.addSeries(null , dimple.plot.scatter);
+  var series = myChart.addSeries(null, dimple.plot.line);
+  myChart.addSeries(null , dimple.plot.scatter);
 
      
-      var story = myChart.setStoryboard("year" , onTick);
-      story.addOrderRule("year");
-      story.frameDuration = 3000; 		//Frame transition,  increase delay
+  var story = myChart.setStoryboard("year" , onTick);
+  story.addOrderRule("year");
+  story.frameDuration = 3000; 		//Frame transition,  increase delay
       
-      myChart.draw();
+  myChart.draw();
       
 
-      story.storyLabel.remove(); //Remove label that appears on iterating through the data , since I have a seperate indicater box
+  story.storyLabel.remove(); //Remove label that appears on iterating through the data , since I have a seperate indicater box
       //end.
       
-     }
-    </script>
+  }
+ </script>
 
 
 <body>
