@@ -110,16 +110,16 @@ function plotDataAndAnimate(data) {
       height = 900 - margin;
 
     var frame = 1000;
- 	  var firstTick = true;
+ 	 var firstTick = true;
     
-    var svg = dimple.newSvg("body" , 1745 , 800);
+    var svg = dimple.newSvg("body" , 900 , 800);
 
     //Step 2 : Create an Indicator box to show which year is being show in the data! --> Use barplot vs time and hide x-axis to show only y-axis years
     var indicator = new dimple.chart(svg, data);    //Indicator is the container for the years boxes!
 
- 		var defaultColor =  indicator.defaultColors[0];
+ 	var defaultColor =  indicator.defaultColors[0];
     var indicatorColor = indicator.defaultColors[2];
-    indicator.setBounds(250,480, 140, 250);
+    indicator.setBounds(400, 320, 140, 220);
 
  		  
 	  var indicator_y = indicator.addCategoryAxis("y", "year");
@@ -145,8 +145,8 @@ function plotDataAndAnimate(data) {
               "to resume animation"])
           .enter()
           .append("text")
-          .attr("x", 100)
-          .attr("y", function (d, i) { return 500 + i * 12; }) //15 + i * 12
+          .attr("x", 250)
+          .attr("y", function (d, i) { return 420 + i * 12; }) //15 + i * 12
           .style("font-family", "sans-serif")
           .style("font-size", "12px")
           .style("color", "Black")
@@ -234,7 +234,7 @@ function plotDataAndAnimate(data) {
     //Step 5 : main plot------------------------------------------------------------------------------------------------------------
 
       var myChart = new dimple.chart(svg, data);      //The main plot
-	    myChart.setBounds(60,50,	1620, 700);
+	    myChart.setBounds(60,50,800,500);
   	  var y = myChart.addMeasureAxis("y", "delay_carrier");
       var x  = myChart.addCategoryAxis("x", "month");
       x.title =  "Months";
@@ -259,6 +259,7 @@ function plotDataAndAnimate(data) {
 
 
 <body>
+<div class = 'container-fluid'>
 <div class="page-header" id = 'page-header'>
   <h1 id = 'big-text'>Delay in Airports<small> Through months of the year</small></h1>
 </div>
@@ -267,5 +268,6 @@ function plotDataAndAnimate(data) {
 d3.csv("/data/airline_monthly_delay.csv" , plotDataAndAnimate );
 
   </script>
+</div>
 </body>
 </html>
