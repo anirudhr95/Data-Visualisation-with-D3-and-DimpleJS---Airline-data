@@ -88,7 +88,7 @@ function plotDataAndAnimate(data) {
   } else {
     story.goToFrame(e.yValue);
     story.pauseAnimation();
-  }
+          }
   } 
 
 function onTick(e) {
@@ -118,7 +118,7 @@ function onTick(e) {
 
   var defaultColor =  indicator.defaultColors[0];
   var indicatorColor = indicator.defaultColors[2];
-  indicator.setBounds(780, 320, 140, 220);
+  indicator.setBounds(920, 320, 140, 220);
 
  		  
   var indicator_y = indicator.addCategoryAxis('y', 'year');
@@ -144,7 +144,7 @@ function onTick(e) {
            'to resume animation'])
     .enter()
     .append('text')
-    .attr('x', 780)
+    .attr('x', 920)
     .attr('y', function (d, i) { return 270 + i * 12; }) //15 + i * 12
     .style('font-family', 'sans-serif')
     .style('font-size', '11px')
@@ -154,7 +154,7 @@ function onTick(e) {
 
     //end of step 3 -----------------------------------------------------------------------------------------------------------------
 
-    //Step 4: Add legend ------------------------------------------------------------------------------------------------------------
+    //Step 4: Add legend  and highlights --------------------------------------------------------------------------------------------
   var christmas_circles = [20,30];
 
   var circles = svg.selectAll('legend_circles_christmas')  //Using data,enter for adding legend
@@ -163,8 +163,8 @@ function onTick(e) {
     .append('circle');      
 
   var circle_draw = circles                               //Adding circles in the legend to svg
-    .attr('cx' , function(d) {return 1370;})
-    .attr('cy' , function(d) { return (620 + (3.2*d)) ;})
+    .attr('cx' , function(d) {return 240;})
+    .attr('cy' , function(d) { return (400 + (3.2*d)) ;})
     .attr('r' , function(d) {
     var return_radius;
     if(d === 20) {return_radius = 8;}
@@ -180,9 +180,9 @@ function onTick(e) {
   .attr('opacity' , 0.8);     
 
   var rectangle = svg.append('rect')                //Adding a box around legend
-    .attr('x', 1350)
-    .attr('y', 650)
-    .attr('width', 280)
+    .attr('x', 220)
+    .attr('y', 435)
+    .attr('width', 260)
     .attr('height', 90)
     .attr('fill-opacity' , 0.0)
     .attr('stroke' , '#0e0e0f')
@@ -192,10 +192,10 @@ function onTick(e) {
     .data(['Legend'])                    
     .enter()
     .append('text')
-    .attr('x', 1450)
-    .attr('y', 640) //15 + i * 12
+    .attr('x', 320)
+    .attr('y', 425) //15 + i * 12
     .style('font-family', 'sans-serif')
-    .style('font-size', '14px')
+    .style('font-size', '13px')
     .style('color', 'Black')
     .text(function (d) { return d; });       
 
@@ -203,10 +203,10 @@ function onTick(e) {
     .data([' - Christmas and New Year vacations'])                    
     .enter()
     .append('text')
-    .attr('x', 1385)
-    .attr('y', 687) //15 + i * 12
+    .attr('x', 253)
+    .attr('y', 468) //15 + i * 12
     .style('font-family', 'sans-serif')
-    .style('font-size', '14px')
+    .style('font-size', '13px')
     .style('color', 'Black')
     .text(function (d)  { return d; });  
 
@@ -214,10 +214,10 @@ function onTick(e) {
     .data([' - Summer Vacations'])                    
     .enter()
     .append('text')
-    .attr('x', 1385)
-    .attr('y', 720) //15 + i * 12
+    .attr('x', 253)
+    .attr('y', 500) //15 + i * 12
     .style('font-family', 'sans-serif')
-    .style('font-size', '14px')
+    .style('font-size', '13px')
     .style('color', 'Black')
     .text(function (d) { return d; });  
      
@@ -226,29 +226,64 @@ function onTick(e) {
     .attr('ry', 10)
     .style('fill', function (d) { return (d.y === '2003' ? indicatorColor.fill : defaultColor.fill) })
     .style('stroke', function (d) { return (d.y === '2003' ? indicatorColor.stroke : defaultColor.stroke) })
-    .style('opacity', 0.4);       
+    .style('opacity', 0.4);     
+
+    var rectangle = svg.append('rect')                //Adding a highlight rectangle around legend
+    .attr('x', 100)
+    .attr('y', 50)
+    .attr('width', 40)
+    .attr('height', 500)
+    .attr('fill' , '#f44265')
+    .attr('fill-opacity' , 0.1)
+    .attr('stroke' , '#0e0e0f')
+    .attr('stroke-width' , 0.1);
+
+    var rectangle = svg.append('rect')                //Adding a highlight rectangle around legend
+    .attr('x', 420)
+    .attr('y', 50)
+    .attr('width', 110)
+    .attr('height', 500)
+    .attr('fill' , '#f44265')
+    .attr('fill-opacity' , 0.1)
+    .attr('stroke' , '#0e0e0f')
+    .attr('stroke-width' , 0.1);
+
+    var rectangle = svg.append('rect')                //Adding a highlight rectangle around legend
+    .attr('x', 820)
+    .attr('y', 50)
+    .attr('width', 40)
+    .attr('height', 500)
+    .attr('fill' , '#f44265')
+    .attr('fill-opacity' , 0.1)
+    .attr('stroke' , '#0e0e0f')
+    .attr('stroke-width' , 0.1);
+
 
     //end of step 4 ----------------------------------------------------------------------------------------------------------------
 
     //Step 5 : main plot------------------------------------------------------------------------------------------------------------
 
   var myChart = new dimple.chart(svg, data);      //The main plot
-  myChart.setBounds(70,50,700,500);
+  myChart.setBounds(100,50,750,500);
   var y = myChart.addMeasureAxis('y', 'delay_carrier');
   var x  = myChart.addTimeAxis('x', 'month','%m' , '%b');
   x.title =  'Months';
   y.title = 'Delay in Minutes(Millions)';
-
+  y.tickFormat = ",.0f";
   var series = myChart.addSeries(null, dimple.plot.line);
-  myChart.addSeries(null , dimple.plot.scatter);
+  var mySeries = myChart.addSeries(null , dimple.plot.scatter);
 
-     
+  // mySeries.afterDraw = function (s, d)  {
+  //         myChart.axes[0].shapes.attr('transform', 'translate(60,0)');
+  // };
+
   var story = myChart.setStoryboard('year' , onTick);
   story.addOrderRule('year');
   story.frameDuration = 3000; 		//Frame transition,  increase delay
-      
+
   myChart.draw();
-      
+     
+  // myChart.axes[0].shapes.attr('transform', 'translate(60,0)');
 
   story.storyLabel.remove(); //Remove label that appears on iterating through the data , since I have a seperate indicater box
                              //end.
