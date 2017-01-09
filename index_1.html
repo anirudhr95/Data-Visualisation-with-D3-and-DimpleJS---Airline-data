@@ -163,7 +163,7 @@ function onTick(e) {
     .append('circle');      
 
   var circle_draw = circles                               //Adding circles in the legend to svg
-    .attr('cx' , function(d) {return 240;})
+    .attr('cx' , function(d) {return 165;})
     .attr('cy' , function(d) { return (400 + (3.2*d)) ;})
     .attr('r' , function(d) {
     var return_radius;
@@ -180,7 +180,7 @@ function onTick(e) {
   .attr('opacity' , 0.8);     
 
   var rectangle = svg.append('rect')                //Adding a box around legend
-    .attr('x', 220)
+    .attr('x', 150)
     .attr('y', 435)
     .attr('width', 260)
     .attr('height', 90)
@@ -192,10 +192,10 @@ function onTick(e) {
     .data(['Legend'])                    
     .enter()
     .append('text')
-    .attr('x', 320)
-    .attr('y', 425) //15 + i * 12
+    .attr('x', 260)
+    .attr('y', 428) //15 + i * 12
     .style('font-family', 'sans-serif')
-    .style('font-size', '13px')
+    .style('font-size', '14px')
     .style('color', 'Black')
     .text(function (d) { return d; });       
 
@@ -203,7 +203,7 @@ function onTick(e) {
     .data([' - Christmas and New Year vacations'])                    
     .enter()
     .append('text')
-    .attr('x', 253)
+    .attr('x', 180)
     .attr('y', 468) //15 + i * 12
     .style('font-family', 'sans-serif')
     .style('font-size', '13px')
@@ -214,7 +214,7 @@ function onTick(e) {
     .data([' - Summer Vacations'])                    
     .enter()
     .append('text')
-    .attr('x', 253)
+    .attr('x', 180)
     .attr('y', 500) //15 + i * 12
     .style('font-family', 'sans-serif')
     .style('font-size', '13px')
